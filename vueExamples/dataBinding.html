@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Data Binding</title>
+	<script type="text/javascript" src="https://unpkg.com/vue@2.3.3/dist/vue.js"></script>
+	<style type="text/css">
+		.segment {
+			border: 1px black solid;
+			margin-bottom: 10px;
+		}
+		.length{
+			width: 500px;
+		}
+	</style>
+</head>
+<body>
+	<div id="stringInterpolation" class="segment">
+		<h1>${msg}</h1>
+	</div>
+	<div id="oneWayBinding" class="segment">
+		 one-way binding: <input type="text" class="length" :value="msg + ' (just string)'">
+		 <h1>{{msg}}</h1>
+	</div>
+	<div id="twoWayBinding"  class="segment">
+		<div>
+			two-way binding:  <input type="text" class="length" v-model="msg">
+		</div>
+		 <div>
+			 two-way binding with lazy:  <input type="text" class="length" v-model.lazy="msg">
+		</div>
+		 <h1>{{msg}}</h1>
+
+		 <legend>Interests</legend>
+		 <div>
+			<input type="checkbox" v-model="interests" value="Running"> Running
+		</div>
+		<div>
+			<input type="checkbox" v-model="interests" value="Cycling"> Cycling
+		</div>
+		<div>
+			<input type="checkbox" v-model="interests" value="Swining"> Swining
+ 		</div>
+ 		<p>Selected interests: {{interests.join(', ')}}</p>
+	</div>
+
+	<script>
+
+		var stringInterpolation = new Vue({
+			el: '#stringInterpolation',
+			data: {
+				msg: "This is string interpolation."
+			},
+			//Change the plain text interpolation delimiters('{{'-->'${', '}}'-->'}')
+			delimiters: ['${', '}']
+		})
+
+		//v-bind is one-way binding and binds html attribute. (when data change, the DOM change)
+		//':' is the shorthand of 'v-bind:'
+		var oneWayBinding = new Vue({
+			el: '#oneWayBinding',
+			data: {
+				msg: "This is one-way binding."
+			}
+		})
+
+		//v-model is two-way binding. (data change, the DOM change, vice versa)
+		//.lazy: listen to change events instead of input
+		var twoWayBinding = new Vue({
+			el: '#twoWayBinding',
+			data: {
+				msg: "This is two-way binding.",
+				interests: []
+			}	
+		})
+	</script>
+</body>
+</html>
